@@ -1,0 +1,282 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PassengerManager : MonoBehaviour
+{
+	public static PassengerManager instance;
+
+	public enum PassengerAction
+	{
+		Boarding,
+		Airport,
+		Drop,
+		Dead,
+	}
+	struct Passenger
+	{
+		public int type;	// Passenger character type
+		public Vector3 position;
+		public Vector3 velocity;
+		public PassengerAction action;
+		public int animation;
+		public Vector3 startAirportPos;	// start airport position
+		public int targetAirport;		// airport id
+		public float time;
+		public bool active;
+	}
+
+	public int maxPassengers = 1000;
+	public int maxAnimation = 1;
+	public int gridCount = 1;
+	public Material material;
+	new MeshRenderer renderer;
+	Passenger [] passengers;
+	Mesh mesh;
+	Vector3 [] vertices;
+	Vector2 [] uv;
+	AirplanePlayer player;
+
+	public int boardingPassengers
+	{
+		get
+		{
+			int n = 0;
+			foreach(Passenger p in passengers)
+			{
+				if(p.active && p.action == PassengerAction.Boarding)
+					n++;
+			}
+			return n;
+		}
+	}
+
+	void Awake()
+	{
+		instance = this;
+		passengers = new Passenger[maxPassengers];
+
+		renderer = GetComponent<MeshRenderer>();
+		if(!renderer)
+			renderer = gameObject.AddComponent<MeshRenderer>();
+		renderer.sharedMaterial = material;
+
+		
+		// Create mesh
+		mesh = new Mesh();
+		vertices = new Vector3[maxPassengers*4];
+		uv = new Vector2[maxPassengers*4];
+		int [] indices = new int[maxPassengers*3*2];
+		for(int i=0; i<maxPassengers; i++)
+		{
+			vertices[(i*4)] = new Vector3(-0.5f, 0.5f, 0.0f);
+			vertices[(i*4)+1] = new Vector3(0.5f, 0.5f, 0.0f);
+			vertices[(i*4)+2] = new Vector3(0.5f, -0.5f, 0.0f);
+			vertices[(i*4)+3] = new Vector3(-0.5f, -0.5f, 0.0f);
+			uv[(i*4)] = new Vector2(0.0f, 1.0f);
+			uv[(i*4)+1] = new Vector2(1.0f, 1.0f);
+			uv[(i*4)+2] = new Vector2(1.0f, 0.0f);
+			uv[(i*4)+3] = new Vector2(0.0f, 0.0f);
+			indices[(i*3*2)] = (i*4);
+			indices[(i*3*2)+1] = (i*4)+1;
+			indices[(i*3*2)+2] = (i*4)+3;
+			indices[(i*3*2)+3] = (i*4)+1;
+			indices[(i*3*2)+4] = (i*4)+2;
+			indices[(i*3*2)+5] = (i*4)+3;
+			passengers[i].type = Random.Range(0, 5);
+		}
+		mesh.vertices = vertices;
+		mesh.uv = uv;
+		mesh.triangles = indices;
+
+		// Register mesh
+		MeshFilter mf = GetComponent<MeshFilter>();
+		if(!mf)
+			mf = gameObject.AddComponent<MeshFilter>();
+		mf.sharedMesh = mesh;
+	}
+
+	void Start()
+	{
+		player = GameManager.instance.player;
+	}
+
+
+	void Update()
+	{
+		// Action
+		for(int i=0; i<maxPassengers; i++)
+		{
+			Passenger p = passengers[i];
+			if(!p.active) continue;
+
+			Vector3 dir = new Vector3();
+			const float speed = 3.0f;
+			p.position += p.velocity * Time.deltaTime;
+			if(p.action == PassengerAction.Boarding)	// Boarding to the plane
+			{
+				if(player.isInAirport)
+				{
+					dir = player.transform.position - p.position;
+					if(dir.sqrMagnitude <= 1.0f)
+					{
+						// Boarded the plane
+						player.Board(p.targetAirport);
+						Despawn(i);
+						continue;
+					}
+				}
+				else
+				{
+					// Back to the airport
+					dir = p.startAirportPos - p.position;
+					if(dir.sqrMagnitude <= 0.5f * 0.5f)
+					{
+						// Enter the airport
+						Despawn(i);
+						continue;
+					}
+				}
+				// walking on the ground
+				p.position = p.position.normalized * (GameManager.instance.planet.size + 0.7f + (Mathf.Sin(p.time*30.0f) * 0.1f));
+				p.velocity = dir.normalized * speed;
+			}
+			else if(p.action == PassengerAction.Airport)	// Enter the airport
+			{
+				dir = p.startAirportPos - p.position;
+				if(dir.sqrMagnitude <= 0.5f * 0.5f)
+				{
+					// Enter the airport
+					Despawn(i);
+					continue;
+				}
+				// walking on the ground
+				p.position = p.position.normalized * (GameManager.instance.planet.size + 0.7f + (Mathf.Sin(p.time*30.0f) * 0.1f));
+				p.velocity = dir.normalized * speed;
+			}
+			else if(p.action == PassengerAction.Drop)	// Dropping
+			{
+				if(p.position.magnitude <= GameManager.instance.planet.size)	// Touch the ground
+				{
+					p.action = PassengerAction.Dead;
+					p.animation = 2;
+					p.velocity = new Vector3();
+					p.position = p.position.normalized * (GameManager.instance.planet.size + 0.5f);
+					BloodEffect.instance.Emit(p.position);
+				}
+				else
+				{
+					p.velocity -= p.velocity * 0.4f * Time.deltaTime; // Airdrag
+					p.velocity += p.position.normalized*-9.8f*Time.deltaTime;
+				}
+			}
+
+			p.time += Time.deltaTime;
+			passengers[i] = p;
+		}
+
+		UpdateMesh();
+		//Graphics.DrawMesh(mesh, new Vector3(), Quaternion.identity, material, 0);
+	}
+
+	public void Spawn(Vector3 position, Vector3 airportPos, int targetAirport, PassengerAction action)
+	{
+		int id = FindPassenger();
+		if(id < 0) return;
+
+		passengers[id].position = position;
+		passengers[id].velocity = new Vector3();
+		passengers[id].action = action;
+		passengers[id].animation = 0;
+		passengers[id].startAirportPos = airportPos;
+		passengers[id].targetAirport = targetAirport;
+		passengers[id].active = true;
+	}
+
+	public void SpawnDrop(Vector3 position, Vector3 velocity)
+	{
+		int id = FindPassenger();
+		if(id < 0) return;
+
+		passengers[id].position = position;
+		passengers[id].velocity = velocity;
+		passengers[id].action = PassengerAction.Drop;
+		passengers[id].animation = 1;
+		passengers[id].active = true;
+	}
+
+	int FindPassenger()
+	{
+		// Find inactive passenger
+		for(int i=0; i<maxPassengers; i++)
+		{
+			if(!passengers[i].active)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	void Despawn(int id)
+	{
+		passengers[id].active = false;
+	}
+
+	void UpdateMesh()
+	{
+		Vector3 campos = Camera.main.transform.position;
+		Vector3 camforward = Camera.main.transform.forward;
+
+		// Update Mesh
+		for(int i=0; i<maxPassengers; i++)
+		{
+			Passenger p = passengers[i];
+			int vid = (i*4);
+			if(!passengers[i].active)
+			{
+				// hide polygons
+				vertices[vid] = new Vector3();
+				vertices[vid+1] = new Vector3();
+				vertices[vid+2] = new Vector3();
+				vertices[vid+3] = new Vector3();
+				continue;
+			}
+
+			// show polygons (billboard)
+			Vector3 forward = Vector3.ProjectOnPlane(p.position - campos, p.position.normalized);
+			Quaternion rot = Quaternion.LookRotation(forward, p.position.normalized) * Quaternion.Euler(20.0f, 0.0f, 0.0f);
+			vertices[vid] = rot * new Vector3(-0.5f, 0.5f, 0.0f) + p.position;
+			vertices[vid+1] = rot * new Vector3(0.5f, 0.5f, 0.0f) + p.position;
+			vertices[vid+2] = rot * new Vector3(0.5f, -0.5f, 0.0f) + p.position;
+			vertices[vid+3] = rot * new Vector3(-0.5f, -0.5f, 0.0f) + p.position;
+
+			// Set UV
+			int anim = p.animation;
+			int sid = p.type * maxAnimation + anim; // sprite ID
+			int x = sid % gridCount;
+			int y = sid / gridCount;
+			float flip = Mathf.Sign(Vector3.SignedAngle(p.velocity, camforward, p.position.normalized));
+			float gridSize = 1.0f/gridCount;
+			Vector2 u = new Vector2(x*gridSize, y*gridSize);
+			if(flip >= 0.0f)
+			{
+				uv[vid] = u + new Vector2(0.0f, gridSize);
+				uv[vid+1] = u + new Vector2(gridSize, gridSize);
+				uv[vid+2] = u + new Vector2(gridSize, 0.0f);
+				uv[vid+3] = u;
+			}
+			else
+			{
+				uv[vid] = u + new Vector2(gridSize, gridSize);
+				uv[vid+1] = u + new Vector2(0.0f, gridSize);
+				uv[vid+2] = u;
+				uv[vid+3] = u + new Vector2(gridSize, 0.0f);
+			}
+		}
+
+		mesh.vertices = vertices;
+		mesh.uv = uv;
+		mesh.RecalculateBounds();
+	}
+}
