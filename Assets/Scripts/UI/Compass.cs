@@ -45,11 +45,9 @@ public class Compass : MonoBehaviour
 			Image icon2 = t.GetChild(1).GetComponent<Image>();
 			icon.gameObject.SetActive(false);
 			icon2.gameObject.SetActive(false);
-			Debug.Log(airport.item1 + "   " + airport.item2);
 			bool subIcon = false;
 			if(airport.item1 == ItemType.Gas || airport.item2 == ItemType.Gas)
 			{
-				Debug.Log("GAS ICON");
 				icon.sprite = gasSprite;
 				icon.gameObject.SetActive(true);
 				subIcon = true;
