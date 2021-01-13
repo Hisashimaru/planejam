@@ -69,6 +69,8 @@ public class AirplanePlayer : Airplane
 	public AudioClip tireSound;
 	public AudioClip breakShieldSound;
 	public AudioSource boostSound;
+	public AudioSource groundSound;
+	public AudioSource alertSound;
 	float nextPlayBoardSoundTime;
 	Tweener scaleTweener;
 	Material material;
@@ -282,8 +284,28 @@ public class AirplanePlayer : Airplane
 			onGround = false;
 		}
 
-		// Dirteffect
+		// Dirt effect
 		groundEffect.emmision = dirtEffectFlag;
+		if(dirtEffectFlag)
+		{
+				// Play gound sound
+				if(!groundSound.isPlaying)
+				{
+					groundSound.Play();
+				}
+				// change ground sound volume by speed
+				float volume = speed.RemapClamp(1f, 5f, 0.0f, 0.5f);
+				groundSound.volume = volume;
+		}
+		else
+		{
+			// Fade off
+			groundSound.volume = Mathf.MoveTowards(groundSound.volume, 0.0f, 1.0f*Time.deltaTime);
+		}
+		if(groundSound.isPlaying && groundSound.volume == 0.0f)
+		{
+			groundSound.Stop();
+		}
 
 		// no gas explosion
 		if(gasExposionTime <= Time.time)
@@ -393,6 +415,18 @@ public class AirplanePlayer : Airplane
 		{
 			wingTrailLeft.emitting = false;
 			wingTrailRight.emitting = false;
+		}
+
+		// Alert Sound
+		if(healthNormal < 0.2f || gasNormal < 0.2f)
+		{
+			if(!alertSound.isPlaying)
+				alertSound.Play();
+		}
+		else
+		{
+			if(alertSound.isPlaying)
+				alertSound.Stop();
 		}
 
 		if(health <= 0.0f)
