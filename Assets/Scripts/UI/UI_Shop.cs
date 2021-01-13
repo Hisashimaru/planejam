@@ -22,6 +22,13 @@ public class UI_Shop : MonoBehaviour
 	public Button rightButton;
 	ButtonSet[] buttons = new ButtonSet[3];
 
+	[Header("ICONS")]
+	public Sprite gasSprite;
+	public Sprite fixSprite;
+	public Sprite seatSprite;
+	public Sprite boostSprite;
+	public Sprite shieldSprite;
+
 	[Header("Sounds")]
 	//public AudioClip purchaseSound;
 	public AudioSource purchaseSound;
@@ -41,6 +48,7 @@ public class UI_Shop : MonoBehaviour
 		public Button button;
 		public Text name;
 		public Text cost;
+		public Image icon;
 		public System.Func<bool> check;
 	}
 
@@ -51,12 +59,15 @@ public class UI_Shop : MonoBehaviour
 		buttons[0].button = leftButton;
 		buttons[0].name = leftButton.transform.Find("Text/Name").GetComponent<Text>();
 		buttons[0].cost = leftButton.transform.Find("Text/Cost").GetComponent<Text>();
+		buttons[0].icon = leftButton.transform.Find("Icon").GetComponent<Image>();
 		buttons[1].button = rightButton;
 		buttons[1].name = rightButton.transform.Find("Text/Name").GetComponent<Text>();
 		buttons[1].cost = rightButton.transform.Find("Text/Cost").GetComponent<Text>();
+		buttons[1].icon = rightButton.transform.Find("Icon").GetComponent<Image>();
 		buttons[2].button = topButton;
 		buttons[2].name = topButton.transform.Find("Text/Name").GetComponent<Text>();
 		buttons[2].cost = topButton.transform.Find("Text/Cost").GetComponent<Text>();
+		buttons[2].icon = topButton.transform.Find("Icon").GetComponent<Image>();
 
 		buyAction0 = inputActionAsset["Buy0"];
 		buyAction1 = inputActionAsset["Buy1"];
@@ -134,6 +145,7 @@ public class UI_Shop : MonoBehaviour
 		buttons[n].check = CanBuySheat;
 		buttons[n].name.text = "SEAT";
 		buttons[n].cost.text = $"{GameManager.instance.seatCost}{currency}";
+		buttons[n].icon.sprite = seatSprite;
 		n++;
 		
 		// Fix
@@ -146,6 +158,7 @@ public class UI_Shop : MonoBehaviour
 			buttons[n].check = CanFix;
 			buttons[n].name.text = "FIX";
 			buttons[n].cost.text = $"{GameManager.instance.fixCost}{currency}";
+			buttons[n].icon.sprite = fixSprite;
 			//float fixable = (GameManager.instance.money > damage)? damage : GameManager.instance.money;
 			n++;
 		}
@@ -160,6 +173,7 @@ public class UI_Shop : MonoBehaviour
 			buttons[n].check = CanBuyGas;
 			buttons[n].name.text = "GAS";
 			buttons[n].cost.text = $"{GameManager.instance.gasCost}{currency}";
+			buttons[n].icon.sprite = gasSprite;
 			//float buyableGas = (GameManager.instance.money > freeSpace)? freeSpace : GameManager.instance.money;
 			n++;
 		}
@@ -174,6 +188,7 @@ public class UI_Shop : MonoBehaviour
 			buttons[n].check = CanBuyShield;
 			buttons[n].name.text = "SHIELD";
 			buttons[n].cost.text = $"{GameManager.instance.shieldCost}{currency}";
+			buttons[n].icon.sprite = shieldSprite;
 			n++;
 		}
 
@@ -187,6 +202,7 @@ public class UI_Shop : MonoBehaviour
 			buttons[n].check = CanBuyBoost;
 			buttons[n].name.text = "BOOST";
 			buttons[n].cost.text = $"{GameManager.instance.shieldCost}{currency}";
+			buttons[n].icon.sprite = boostSprite;
 			n++;
 		}
 	}

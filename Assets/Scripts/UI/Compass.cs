@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class Compass : MonoBehaviour
 {
 	public GameObject markerPrefab;
+	[Header("Shop Icon")]
+	public Sprite renchSprite;
+	public Sprite gasSprite;
+
 	Airplane player;
 	//List<RectTransform> markers = new List<RectTransform>();
 
@@ -35,6 +39,34 @@ public class Compass : MonoBehaviour
 			markerData[i].airport = airportList[i].transform;
 			markerData[i].marker = t;
 			markerData[i].image = image;
+
+			// shop icon
+			Image icon = t.GetChild(0).GetComponent<Image>();
+			Image icon2 = t.GetChild(1).GetComponent<Image>();
+			icon.gameObject.SetActive(false);
+			icon2.gameObject.SetActive(false);
+			Debug.Log(airport.item1 + "   " + airport.item2);
+			bool subIcon = false;
+			if(airport.item1 == ItemType.Gas || airport.item2 == ItemType.Gas)
+			{
+				Debug.Log("GAS ICON");
+				icon.sprite = gasSprite;
+				icon.gameObject.SetActive(true);
+				subIcon = true;
+			}
+			if(airport.item1 == ItemType.Fix || airport.item2 == ItemType.Fix)
+			{
+				if(!subIcon)
+				{
+					icon.sprite = renchSprite;
+					icon.gameObject.SetActive(true);
+				}
+				else
+				{
+					icon2.sprite = renchSprite;
+					icon2.gameObject.SetActive(true);
+				}
+			}
 		}
 	}
 
