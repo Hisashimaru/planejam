@@ -14,13 +14,14 @@ public class GroundEffect : MonoBehaviour
 		}
 	}
 
-	void Start()
+	void Awake()
 	{
 		var particles = GetComponentsInChildren<ParticleSystem>();
 		em = new ParticleSystem.EmissionModule[particles.Length];
 		for(int i=0; i<particles.Length; i++)
 		{
 			em[i] = particles[i].emission;
+			em[i].enabled = false;
 		}
 	}
 
