@@ -19,12 +19,12 @@ public class Planet : MonoBehaviour
 
 	struct PlanetObject
 	{
-		public Vector3 position;
+		public Transform transform;
 		public float radius;
 
-		public PlanetObject(Vector3 position, float radius)
+		public PlanetObject(Transform transform, float radius)
 		{
-			this.position = position;
+			this.transform = transform;
 			this.radius = radius;
 		}
 	}
@@ -41,7 +41,7 @@ public class Planet : MonoBehaviour
 		airportManager.Build();
 		foreach(Airport a in airportManager.airportList)
 		{
-			planetObjects.Add(new PlanetObject(a.transform.position, mountainRadius));
+			planetObjects.Add(new PlanetObject(a.transform, mountainRadius));
 		}
 
 		CreateMountains(mountainCount);
@@ -60,7 +60,7 @@ public class Planet : MonoBehaviour
 			Quaternion rot = Quaternion.AngleAxis(Random.Range(0.0f, 360.0f), pos.normalized) * Quaternion.FromToRotation(Vector3.up, pos.normalized);
 			t.position = pos;
 			t.rotation = rot;
-			planetObjects.Add(new PlanetObject(pos, mountainRadius));
+			planetObjects.Add(new PlanetObject(t, mountainRadius));
 		}
 		Debug.Log($"{cnt} Mountains ({positions.Count})");
 	}
@@ -77,7 +77,7 @@ public class Planet : MonoBehaviour
 			Quaternion rot = Quaternion.AngleAxis(Random.Range(0.0f, 360.0f), pos.normalized) * Quaternion.FromToRotation(Vector3.up, pos.normalized);
 			t.position = pos;
 			t.rotation = rot;
-			planetObjects.Add(new PlanetObject(pos, objectRadius));
+			planetObjects.Add(new PlanetObject(t, objectRadius));
 		}
 		Debug.Log($"{cnt} World Objects ({positions.Count})");
 	}
@@ -106,7 +106,17 @@ public class Planet : MonoBehaviour
 			// Check overlap with airports
 			foreach(PlanetObject p in planetObjects)
 			{
-				if((p.position-pos).magnitude < radius+p.radius)
+				// Check distance
+				float distance = (p.transform.position-pos).magnitude;
+				if(distance < radius+p.radius)
+				{
+					overlapped = true;
+					break;
+				}
+
+				// Check distance and the angle between a runway to spawnpoint (Don't spawn a object to a runway direction.)
+				Vector3 dir = (pos - p.transform.position).normalized;
+				if(distance < (radius+p.radius+10.0f) && (Mathf.Abs(Vector3.Dot(dir, p.transform.forward)) > 0.5f))	// 45deg
 				{
 					overlapped = true;
 					break;
