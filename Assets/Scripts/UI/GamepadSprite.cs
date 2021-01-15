@@ -23,7 +23,7 @@ public class GamepadSprite : MonoBehaviour
 	public Sprite east{get{return xbox.east;}}
 	public Sprite south{get{return xbox.south;}}
 
-	void Awake()
+	void Start()
 	{
 		instance = this;
 	}
