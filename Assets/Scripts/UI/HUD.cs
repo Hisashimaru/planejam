@@ -12,6 +12,7 @@ public class HUD : MonoBehaviour
 	public Slider hpSlider;
 	public Slider gasSlider;
 	public Slider boostSlider;
+	public UI_License license;
 	[Header("Sheild")]
 	public Transform shield;
 	public ParticleSystem shieldBreakEffect;
@@ -23,6 +24,7 @@ public class HUD : MonoBehaviour
 	public void ResetHUD()
 	{
 		player = GameManager.instance.player;
+		license.Reset();
 
 		if(airportCounters.Count > 0)
 			return;

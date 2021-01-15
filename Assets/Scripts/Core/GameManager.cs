@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour
 		}
 		UI.instance.FadeIn(2f);
 		UI.instance.HUD.ResetHUD();
+		Debug.Log("Reset UI");
 
 		// Settings
 		SoundManager.instance.bgmVolume = saveData.bgm;
