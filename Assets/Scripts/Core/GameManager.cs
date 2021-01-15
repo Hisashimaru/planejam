@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour
 		}
 		UI.instance.FadeIn(2f);
 		UI.instance.HUD.ResetHUD();
-		Debug.Log("Reset UI");
 	}
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

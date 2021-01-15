@@ -11,7 +11,6 @@ public class UI_License : MonoBehaviour
 	public void Reset()
 	{
 		image.sprite = PilotLicense.instance.currentLicense.sprite;
-		Debug.Log(PilotLicense.instance.currentLicense.sprite);
 	}
 
 	void Update()

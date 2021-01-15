@@ -30,7 +30,6 @@ public class ButtonSprite : MonoBehaviour
 			{
 				image.enabled = false;
 			}
-			Debug.Log("PAD");
 		}
 		else
 		{
