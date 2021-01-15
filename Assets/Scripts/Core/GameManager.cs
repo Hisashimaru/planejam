@@ -103,6 +103,10 @@ public class GameManager : MonoBehaviour
 
 		SoundManager.instance.PlayBGM(music, musicVolume);
 		//money = 100;
+		
+		// Settings
+		SoundManager.instance.bgmVolume = saveData.bgm;
+		SoundManager.instance.sfxVolume = saveData.sfx;
 	}
 
 	static void _OnLoadedScene(Scene scene, LoadSceneMode sceneMode)
@@ -128,10 +132,6 @@ public class GameManager : MonoBehaviour
 		UI.instance.FadeIn(2f);
 		UI.instance.HUD.ResetHUD();
 		Debug.Log("Reset UI");
-
-		// Settings
-		SoundManager.instance.bgmVolume = saveData.bgm;
-		SoundManager.instance.sfxVolume = saveData.sfx;
 	}
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
