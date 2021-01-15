@@ -16333,6 +16333,7 @@ GameObject:
   - component: {fileID: 318555195}
   - component: {fileID: 318555194}
   - component: {fileID: 318555197}
+  - component: {fileID: 318555198}
   m_Layer: 5
   m_Name: GamepadButton
   m_TagString: Untagged
@@ -16430,6 +16431,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &318555198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318555192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034f471825657724daab6d4009a44ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyboardSprite: {fileID: 0}
+  gamepadSprite: {fileID: 21300000, guid: c4d2b9c32b87c034280a19c3ca1f7c7e, type: 3}
 --- !u!1 &339213555
 GameObject:
   m_ObjectHideFlags: 0
@@ -35019,6 +35034,7 @@ GameObject:
   - component: {fileID: 1081751765}
   - component: {fileID: 1081751764}
   - component: {fileID: 1081751767}
+  - component: {fileID: 1081751768}
   m_Layer: 5
   m_Name: GamepadButton
   m_TagString: Untagged
@@ -35116,6 +35132,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &1081751768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081751762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034f471825657724daab6d4009a44ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyboardSprite: {fileID: 0}
+  gamepadSprite: {fileID: 21300000, guid: ca145a41623a13945a85d24afb1cad64, type: 3}
 --- !u!1 &1090351397
 GameObject:
   m_ObjectHideFlags: 0
@@ -41242,6 +41272,7 @@ GameObject:
   - component: {fileID: 1356886139}
   - component: {fileID: 1356886141}
   - component: {fileID: 1356886142}
+  - component: {fileID: 1356886143}
   m_Layer: 5
   m_Name: GamepadButton
   m_TagString: Untagged
@@ -41339,6 +41370,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &1356886143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356886137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034f471825657724daab6d4009a44ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyboardSprite: {fileID: 0}
+  gamepadSprite: {fileID: 21300000, guid: 28af72f52879ae6459e76ec93b91c888, type: 3}
 --- !u!1 &1364526879
 GameObject:
   m_ObjectHideFlags: 0
