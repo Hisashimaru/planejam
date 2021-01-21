@@ -5,26 +5,52 @@ using DG.Tweening;
 
 public class UI_Tutorial : MonoBehaviour
 {
+	public CanvasGroup gotonetxt;
 	public CanvasGroup landing;
+	public CanvasGroup license;
 
 	void Start()
 	{
-		landing.alpha = 0f;
+		Reset();
+	}
+
+	public void Reset()
+	{
+		gotonetxt.gameObject.SetActive(false);
+		landing.gameObject.SetActive(false);
+		license.gameObject.SetActive(false);
+	}
+
+	public void ShowGoto()
+	{
+		StartCoroutine(_ShowCanvas(gotonetxt, 5.0f, 3f));
 	}
 
 	public void ShowLanding()
 	{
-		StartCoroutine(_ShowLanding());
+		StartCoroutine(_ShowCanvas(landing, 5.0f));
 	}
-	IEnumerator _ShowLanding()
-	{
-		landing.gameObject.SetActive(true);
-		landing.DOFade(1.0f, 0.5f);
-		yield return new WaitForSecondsRealtime(0.5f);
-		yield return new WaitForSecondsRealtime(5.0f);
 
-		landing.DOFade(0.0f, 0.5f);
+	public void ShowGetLicense()
+	{
+		StartCoroutine(_ShowCanvas(license, 5.0f));
+	}
+
+	IEnumerator _ShowCanvas(CanvasGroup group, float time, float delay=0f)
+	{
+		if(delay > 0f)
+		{
+			yield return new WaitForSecondsRealtime(delay);
+		}
+
+		group.gameObject.SetActive(true);
+		group.alpha = 0f;
+		group.DOFade(1.0f, 0.5f);
 		yield return new WaitForSecondsRealtime(0.5f);
-		landing.gameObject.SetActive(false);
+		yield return new WaitForSecondsRealtime(time);
+
+		group.DOFade(0.0f, 0.5f);
+		yield return new WaitForSecondsRealtime(0.5f);
+		group.gameObject.SetActive(false);
 	}
 }

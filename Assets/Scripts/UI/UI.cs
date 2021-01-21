@@ -8,6 +8,8 @@ public class UI : MonoBehaviour
 	public static UI instance;
 	public HUD HUD;
 	public UI_Tutorial Tutorial;
+	public UI_Shop Shop;
+	public Compass compass;
 	[SerializeField]
 	UI_GameOver ui_GameOver = null;
 	[SerializeField]
@@ -35,6 +37,14 @@ public class UI : MonoBehaviour
 	static void RunOnStart()
 	{
 		instance = null;
+	}
+
+	public void Reset()
+	{
+		compass.Reset();
+		HUD.ResetHUD();
+		Tutorial.Reset();
+		Shop.Reset();
 	}
 
 	public void HideTitle()

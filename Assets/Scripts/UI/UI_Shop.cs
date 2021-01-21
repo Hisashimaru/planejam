@@ -54,7 +54,8 @@ public class UI_Shop : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;
+		if(instance == null)
+			instance = this;
 		canvasGroup = GetComponent<CanvasGroup>();
 		buttons[0].button = leftButton;
 		buttons[0].name = leftButton.transform.Find("Text/Name").GetComponent<Text>();
@@ -76,9 +77,13 @@ public class UI_Shop : MonoBehaviour
 
 	void Start()
 	{
+		Reset();
+	}
+
+	public void Reset()
+	{
 		player = GameManager.instance.player;
 		canvasGroup.alpha = 0.0f;
-		//gameObject.SetActive(false);
 	}
 
 

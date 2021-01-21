@@ -130,6 +130,9 @@ public class AirplanePlayer : Airplane
 			if(passengerCount >= capacity)
 			{
 				engineStarted = true;
+
+				// Show tutorial
+				Tutorial.instance.ShowGoto();
 			}
 		}
 		

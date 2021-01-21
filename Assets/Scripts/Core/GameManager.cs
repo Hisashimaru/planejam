@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
 		player = GameScene.instance.player;
 		planet = GameScene.instance.planet;
 		planet.Build();
+		Tutorial.instance.Reset();
 
 		// Reset UI
 		UI.instance.HidePause();
@@ -129,8 +130,10 @@ public class GameManager : MonoBehaviour
 			UI.instance.HideTitle();
 			UI.instance.ShowHUD();
 		}
+		UI.instance.Reset();
+
+
 		UI.instance.FadeIn(2f);
-		UI.instance.HUD.ResetHUD();
 	}
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

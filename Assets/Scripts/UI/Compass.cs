@@ -24,6 +24,20 @@ public class Compass : MonoBehaviour
 
 	void Start()
 	{
+		
+	}
+
+	public void Reset()
+	{
+		// Remove old compass
+		if(markerData != null)
+		{
+			foreach(MarkerData d in markerData)
+			{
+				Destroy(d.marker.gameObject);
+			}
+		}
+
 		List<Airport> airportList = GameManager.instance.airportManager.airportList;
 		player = GameManager.instance.player;
 		markerData = new MarkerData[airportList.Count];
