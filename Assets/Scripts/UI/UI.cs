@@ -7,6 +7,7 @@ public class UI : MonoBehaviour
 {
 	public static UI instance;
 	public HUD HUD;
+	public UI_Tutorial Tutorial;
 	[SerializeField]
 	UI_GameOver ui_GameOver = null;
 	[SerializeField]
