@@ -7,6 +7,7 @@ public class UI_Tutorial : MonoBehaviour
 {
 	public CanvasGroup gotonetxt;
 	public CanvasGroup landing;
+	public CanvasGroup boosting;
 	public CanvasGroup license;
 
 	void Start()
@@ -19,6 +20,7 @@ public class UI_Tutorial : MonoBehaviour
 		gotonetxt.gameObject.SetActive(false);
 		landing.gameObject.SetActive(false);
 		license.gameObject.SetActive(false);
+		boosting.gameObject.SetActive(false);
 	}
 
 	public void ShowGoto()
@@ -34,6 +36,11 @@ public class UI_Tutorial : MonoBehaviour
 	public void ShowGetLicense()
 	{
 		StartCoroutine(_ShowCanvas(license, 5.0f));
+	}
+
+	public void ShowBoosting()
+	{
+		StartCoroutine(_ShowCanvas(boosting, 5.0f));
 	}
 
 	IEnumerator _ShowCanvas(CanvasGroup group, float time, float delay=0f)

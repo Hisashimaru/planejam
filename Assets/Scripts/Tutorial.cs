@@ -11,6 +11,7 @@ public class Tutorial : MonoBehaviour
 	bool gotonext = false;
 	bool landing = false;
 	bool license = false;
+	bool boosting = false;
 
 	void Awake()
 	{
@@ -54,8 +55,15 @@ public class Tutorial : MonoBehaviour
 	{
 		if(gotonext)
 			return;
-		
 		UI.instance.Tutorial.ShowGoto();
 		gotonext = true;
+	}
+
+	public void ShowBoosting()
+	{
+		if(boosting)
+			return;
+		UI.instance.Tutorial.ShowBoosting();
+		boosting = true;
 	}
 }

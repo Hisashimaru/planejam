@@ -320,6 +320,7 @@ public class UI_Shop : MonoBehaviour
 			soundEffect.PlayOneShot(upgradeSound);
 			UI.instance.HUD.ShowBoost();
 			Debug.Log("Buy Boost");
+			Tutorial.instance.ShowBoosting();
 		}
 	}
 }
