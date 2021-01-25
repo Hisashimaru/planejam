@@ -7,6 +7,8 @@ using DG.Tweening;
 public class UI_License : MonoBehaviour
 {
 	public Image image;
+	public ParticleSystem effect;
+	public AudioClip clip;
 
 	public void Reset()
 	{
@@ -21,6 +23,8 @@ public class UI_License : MonoBehaviour
 			Debug.Log("Update License");
 			image.sprite = sp;
 			image.transform.DOPunchScale(new Vector3(1.2f, 1.2f, 1.0f), 0.5f);
+			effect.Play();
+			SoundManager.instance.Play(clip, 0.8f);
 		}
 	}
 }
