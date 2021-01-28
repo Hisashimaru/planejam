@@ -264,7 +264,7 @@ public class GameManager : MonoBehaviour
 		if(retryDelay <= Time.time)
 		{
 			// Retry
-			if(Keyboard.current.spaceKey.wasPressedThisFrame)
+			if(pressAnyKeyAction.triggered)
 			{
 				saveData.Save();
 				Restart();
