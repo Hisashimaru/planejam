@@ -22419,7 +22419,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497464066}
-  m_LocalRotation: {x: 0.47028473, y: -0.000000027275496, z: 0.000000015802003, w: 0.8825148}
+  m_LocalRotation: {x: 0.4702847, y: 0.000000045747914, z: -0.000000026654071, w: 0.8825148}
   m_LocalPosition: {x: 0.00000023867656, y: 88.08683, z: -7.675499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -40294,6 +40294,10 @@ MonoBehaviour:
   size: 80
   mountainPrefabs:
   - {fileID: 5607287589091475549, guid: b764c1bb7626d7842a3f7b63294f0c18, type: 3}
+  - {fileID: 3932250958969796972, guid: c0f9b817e6abe734eabd8b412fdae4c5, type: 3}
+  - {fileID: 3932250958969796972, guid: e4fc1219bbf3a224dae570ab2bd27640, type: 3}
+  - {fileID: 7372991340170327523, guid: 24b160e71c9d93e439d06c8e27bb2a07, type: 3}
+  - {fileID: 7372991340170327523, guid: bc2e2740d329ed1429490d936ae9208b, type: 3}
   forestPrefabs:
   - {fileID: 6363199659757798407, guid: 51079c39b200b9943b9a4eaef519414f, type: 3}
   - {fileID: 8634014130972349094, guid: b5b57afd208ac7144b90517e950aaef4, type: 3}
