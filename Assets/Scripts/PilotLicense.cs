@@ -25,10 +25,15 @@ public class PilotLicense : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
+		currentLicense = licenses[0];
 	}
 
-
 	void Update()
+	{
+		UpdateLicense();
+	}
+
+	void UpdateLicense()
 	{
 		int score = GameManager.instance.score;
 		LicenseData license = licenses[0];
@@ -45,11 +50,11 @@ public class PilotLicense : MonoBehaviour
 		{
 			currentLicense = license;
 			// Got final license
-			if(currentLicense.score == licenses[1].score)
+			if(currentLicense.score == licenses[licenses.Length-1].score)
 			{
 				StartCoroutine(ShootFireworks());
 			}
-		}
+		}	
 	}
 
 	IEnumerator ShootFireworks()
