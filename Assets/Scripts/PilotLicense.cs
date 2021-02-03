@@ -13,26 +13,59 @@ public class PilotLicense : MonoBehaviour
 		public int score;
 	}
 
+
 	public LicenseData[] licenses;
+	public GameObject[] fireworksPrefabs;
+
 	public LicenseData currentLicense
 	{
-		get
-		{
-			int score = GameManager.instance.score;
-			LicenseData license = licenses[0];
-			foreach(LicenseData l in licenses)
-			{
-				if(score >= l.score)
-				{
-					license = l;
-				}
-			}
-			return license;
-		}
+		get; protected set;
 	}
 
 	void Awake()
 	{
 		instance = this;
+	}
+
+
+	void Update()
+	{
+		int score = GameManager.instance.score;
+		LicenseData license = licenses[0];
+		foreach(LicenseData l in licenses)
+		{
+			if(score >= l.score)
+			{
+				license = l;
+			}
+		}
+
+		// License Updated
+		if(currentLicense.score != license.score)
+		{
+			currentLicense = license;
+			// Got final license
+			if(currentLicense.score == licenses[1].score)
+			{
+				StartCoroutine(ShootFireworks());
+			}
+		}
+	}
+
+	IEnumerator ShootFireworks()
+	{
+		yield return new WaitForSeconds(1.0f);
+		AirplanePlayer player = GameManager.instance.player;
+		for(int i=0; i<16; i++)
+		{
+			if(player == null)
+				break;
+			Vector3 pos = new Vector3(0.0f, Random.Range(85.0f, 90.0f), 0.0f);
+			Vector3 playernormal= (player.transform.position + (Quaternion.AngleAxis(Random.Range(-60.0f, 60.0f), player.transform.up) * player.transform.forward * Random.Range(5f, 10f))).normalized;
+			pos = Quaternion.FromToRotation(new Vector3(0f, 1f, 0f), playernormal) * pos;
+			GameObject go = Instantiate(fireworksPrefabs[Random.Range(0,fireworksPrefabs.Length)], pos, Quaternion.identity);
+			Destroy(go, 5.0f);
+			yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+		}
 	}
 }
