@@ -61,6 +61,7 @@ public class AirplanePlayer : Airplane
 	public Transform boostEffectL;
 	public Transform boostEffectR;
 	public GroundEffect groundEffect;
+	public ParticleGroup splashEffect;
 	public ParticleSystem smokeEffect;
 	public ParticleSystem moneyEffect;
 	public ParticleSystem breakShieldEffect;
@@ -233,7 +234,7 @@ public class AirplanePlayer : Airplane
 		// Check the ground
 		Ray ray = new Ray(nextPos, -normal);
 		RaycastHit hitinfo;
-		int layermask = ~(LayerMask.GetMask("Ignore Raycast") | LayerMask.GetMask("Airpalne"));//LayerMask.GetMask("Ground");
+		int layermask = ~(LayerMask.GetMask("Ignore Raycast") | LayerMask.GetMask("Airpalne") | LayerMask.GetMask("Sea"));//LayerMask.GetMask("Ground");
 		const float distanceError = 0.1f;
 		bool dirtEffectFlag = false;
 		if(Physics.Raycast(ray, out hitinfo, tireSize+1.0f, layermask) && hitinfo.distance <= tireSize+distanceError && !takeoff)
@@ -281,9 +282,24 @@ public class AirplanePlayer : Airplane
 					Explosion();
 				}
 			}
+			splashEffect.Stop();
 		}
 		else
 		{
+			// Flying
+
+			// Check sea
+			float planetSize = GameManager.instance.planet.size;
+			if((Physics.Raycast(ray, out hitinfo, 4f) && hitinfo.transform.CompareTag("Sea")))
+			{
+				splashEffect.Play();
+				splashEffect.transform.position = transform.position.normalized * planetSize;
+				splashEffect.transform.rotation = Quaternion.LookRotation(transform.forward, transform.position.normalized);
+			}
+			else
+			{
+				splashEffect.Stop();
+			}
 			onGround = false;
 		}
 
@@ -359,6 +375,13 @@ public class AirplanePlayer : Airplane
 
 		// Airplane position
 		transform.localPosition = nextPos;
+
+		// In to the water
+		if(nextPos.magnitude < GameManager.instance.planet.size-1f)
+		{
+			Explosion();
+			return;
+		}
 
 
 

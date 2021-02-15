@@ -10,6 +10,7 @@ public enum DamageType
 	RightWing,
 	SmallObject,
 	LargeObject,
+	Bite,
 }
 
 public class Airplane : MonoBehaviour
@@ -168,11 +169,17 @@ public class Airplane : MonoBehaviour
 		if(isDead)
 			return;
 
+		// Damage effect
+		Quaternion rot = Quaternion.LookRotation(transform.position.normalized, transform.forward);
+		EffectManager.DamageEffect(transform.position, rot);
+
 		if(explosionPrefab)
 		{
-			Quaternion rot = Quaternion.FromToRotation(Vector3.up, transform.position.normalized);
+			rot = Quaternion.FromToRotation(Vector3.up, transform.position.normalized);
 			Instantiate(explosionPrefab, transform.position, rot);
+			
 		}
+
 		for(int i=0; i<30; i++)
 		{
 			Vector3 vel = Random.onUnitSphere;
@@ -180,6 +187,7 @@ public class Airplane : MonoBehaviour
 			vel = Quaternion.FromToRotation(Vector3.up, transform.position.normalized) * Quaternion.Euler(0f, Random.Range(0.0f, 360.0f), 0f) * Quaternion.Euler(Random.Range(0.0f, 45.0f), 0f, 0f) * Vector3.up; // cone velocity
 			PassengerManager.instance.SpawnDrop(transform.position + Random.insideUnitSphere, vel*10f);
 		}
+
 		if(!isPlayer)
 		{
 			AirplaneManager.instance.airplanes.Remove(this);
@@ -239,6 +247,10 @@ public class Airplane : MonoBehaviour
 		bool detachWingR = false;
 		bool detachWingL = false;
 		float lastHealth = health;
+
+		// Damage effect
+		Quaternion rot = Quaternion.LookRotation(transform.position.normalized, transform.forward);
+		EffectManager.DamageEffect(transform.position, rot);
 
 		if(type == DamageType.Body)	// Body damage
 		{

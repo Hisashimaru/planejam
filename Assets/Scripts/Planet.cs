@@ -36,8 +36,14 @@ public class Planet : MonoBehaviour
 		airportManager = GetComponent<AirportManager>();
 	}
 
+	public void Start()
+	{
+		//transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f) * Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)) * Quaternion.Euler(Random.Range(-45f, 45f), 0f, 0f);
+	}
+
 	public void Build()
 	{
+		Debug.Log("Build");
 		airportManager.Build();
 		foreach(Airport a in airportManager.airportList)
 		{
@@ -60,6 +66,7 @@ public class Planet : MonoBehaviour
 			Quaternion rot = Quaternion.AngleAxis(Random.Range(0.0f, 360.0f), pos.normalized) * Quaternion.FromToRotation(Vector3.up, pos.normalized);
 			t.position = pos;
 			t.rotation = rot;
+			t.parent = transform;
 			planetObjects.Add(new PlanetObject(t, mountainRadius));
 		}
 		Debug.Log($"{cnt} Mountains ({positions.Count})");
@@ -77,6 +84,7 @@ public class Planet : MonoBehaviour
 			Quaternion rot = Quaternion.AngleAxis(Random.Range(0.0f, 360.0f), pos.normalized) * Quaternion.FromToRotation(Vector3.up, pos.normalized);
 			t.position = pos;
 			t.rotation = rot;
+			t.parent = transform;
 			planetObjects.Add(new PlanetObject(t, objectRadius));
 		}
 		Debug.Log($"{cnt} World Objects ({positions.Count})");
@@ -89,6 +97,17 @@ public class Planet : MonoBehaviour
 		{
 			Vector3 pos = Random.onUnitSphere * size;
 			bool overlapped = false;
+
+
+			// Check the ground
+			RaycastHit hitInfo;
+			if(Physics.Raycast(pos+pos.normalized, -pos.normalized, out hitInfo, 3f))
+			{
+				if(!hitInfo.transform.CompareTag("Ground"))
+				{
+					continue;
+				}
+			}
 
 			// Check overlap with other sample
 			for(int j=0; j<positions.Count; j++)
