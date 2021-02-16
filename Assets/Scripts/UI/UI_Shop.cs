@@ -292,6 +292,7 @@ public class UI_Shop : MonoBehaviour
 			player.capacity++;
 			purchaseSound.Play();
 			soundEffect.PlayOneShot(upgradeSound);
+			UI.instance.HUD.seatCounter.UpdateCounter();
 			Debug.Log("Buy Seat");
 		}
 	}

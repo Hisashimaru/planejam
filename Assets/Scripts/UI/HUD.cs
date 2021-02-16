@@ -13,6 +13,8 @@ public class HUD : MonoBehaviour
 	public Slider gasSlider;
 	public Slider boostSlider;
 	public UI_License license;
+	public UI_SeatCounter seatCounter;
+	
 	[Header("Sheild")]
 	public Transform shield;
 	public ParticleSystem shieldBreakEffect;
