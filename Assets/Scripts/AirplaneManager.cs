@@ -16,13 +16,24 @@ public class AirplaneManager : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;
+		if(instance == null)
+		{
+			instance = this;
+			Debug.Log(gameObject.GetInstanceID() + "    Set Instance");
+		}
 	}
 
 	void Start()
 	{
+		Reset();
+	}
+
+	public void Reset()
+	{
+		spawnDelay = 0.1f;
 		nextSpawnTime = Time.time + spawnDelay;
 		player = GameManager.instance.player;
+		airplanes = new List<Airplane>();
 	}
 
 	void Update()

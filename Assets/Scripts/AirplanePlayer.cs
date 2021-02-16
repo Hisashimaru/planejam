@@ -87,8 +87,8 @@ public class AirplanePlayer : Airplane
 
 	void Awake()
 	{
-		if(isPlayer)
-			GameManager.instance.player = this;
+		// if(isPlayer)
+		// 	GameManager.instance.player = this;
 	}
 
 	protected override void Start()

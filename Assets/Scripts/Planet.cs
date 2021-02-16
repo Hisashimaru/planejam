@@ -43,7 +43,6 @@ public class Planet : MonoBehaviour
 
 	public void Build()
 	{
-		Debug.Log("Build");
 		airportManager.Build();
 		foreach(Airport a in airportManager.airportList)
 		{

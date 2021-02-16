@@ -121,6 +121,8 @@ public class GameManager : MonoBehaviour
 		planet = GameScene.instance.planet;
 		planet.Build();
 		Tutorial.instance.Reset();
+		AirplaneManager.instance.Reset();
+		PilotLicense.instance.Reset();
 
 		// Reset UI
 		UI.instance.HidePause();

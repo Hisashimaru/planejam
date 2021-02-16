@@ -24,7 +24,13 @@ public class PilotLicense : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;
+		if(instance == null)
+			instance = this;
+		Reset();
+	}
+
+	public void Reset()
+	{
 		currentLicense = licenses[0];
 	}
 
