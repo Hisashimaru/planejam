@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.62357605, g: 0.67043436, b: 0.764151, a: 1}
+  m_AmbientSkyColor: {r: 0.62352943, g: 0.67058825, b: 0.7647059, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -15678,7 +15678,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 58.70456}
+  m_SizeDelta: {x: 58.70456, y: 58.70456}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212046733
 MonoBehaviour:
@@ -22369,7 +22369,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 58.70456}
+  m_SizeDelta: {x: 58.70456, y: 58.70456}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487961010
 MonoBehaviour:
@@ -39765,6 +39765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 896858926}
   - component: {fileID: 896858927}
+  - component: {fileID: 896858928}
   m_Layer: 0
   m_Name: ---- Game Scene ----
   m_TagString: Untagged
@@ -39802,6 +39803,21 @@ MonoBehaviour:
   mainCamera: {fileID: 497464067}
   titleCamera: {fileID: 1637786059}
   planet: {fileID: 1013514851}
+--- !u!114 &896858928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896858925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731f2520d5e315d4a9c5412906783a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  daySky: {fileID: 2100000, guid: c2880811ad974c34883d5630af4f4c79, type: 2}
+  nightSky: {fileID: 2100000, guid: 6e2cfe96047c32a4baa93d797f95712a, type: 2}
+  light: {fileID: 1006465713}
 --- !u!1 &902149390
 GameObject:
   m_ObjectHideFlags: 0

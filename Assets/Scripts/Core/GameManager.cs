@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
 
 		SoundManager.instance.PlayBGM(music, musicVolume);
 		//money = 100;
+		//score = 999;
 		
 		// Settings
 		SoundManager.instance.bgmVolume = saveData.bgm;

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PilotLicense : MonoBehaviour
 {
@@ -65,6 +64,7 @@ public class PilotLicense : MonoBehaviour
 
 	IEnumerator ShootFireworks()
 	{
+		DayNightCycle.ToNight();
 		yield return new WaitForSeconds(1.0f);
 		AirplanePlayer player = GameManager.instance.player;
 		for(int i=0; i<16; i++)
@@ -78,5 +78,6 @@ public class PilotLicense : MonoBehaviour
 			Destroy(go, 5.0f);
 			yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
 		}
+		DayNightCycle.ToDay();
 	}
 }
