@@ -289,6 +289,7 @@ public class Airplane : MonoBehaviour
 			bobj.velocity = transform.forward * speed;
 			bobj.angularVelocity = new Vector3(0.0f, 1.0f, 0.0f);
 			rightWingSmoke.Play();
+			Destroy(wingObj, 60f);
 		}
 		if(detachWingL && leftWing.activeInHierarchy)	// Left wing
 		{
@@ -299,6 +300,7 @@ public class Airplane : MonoBehaviour
 			bobj.velocity = transform.forward * speed;
 			bobj.angularVelocity = new Vector3(0.0f, 1.0f, 0.0f);
 			leftWingSmoke.Play();
+			Destroy(wingObj, 60f);
 		}
 
 		if(health <= 0f)
