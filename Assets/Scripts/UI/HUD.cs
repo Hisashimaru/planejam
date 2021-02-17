@@ -14,7 +14,7 @@ public class HUD : MonoBehaviour
 	public Slider boostSlider;
 	public UI_License license;
 	public UI_SeatCounter seatCounter;
-	
+
 	[Header("Sheild")]
 	public Transform shield;
 	public ParticleSystem shieldBreakEffect;
@@ -44,6 +44,9 @@ public class HUD : MonoBehaviour
 			airportCounters.Add(go);
 			go.transform.SetParent(airportCounter, false);
 		}
+
+		shield.gameObject.SetActive(false);
+		boostSlider.transform.parent.gameObject.SetActive(false);
 	}
 
 	// Update is called once per frame

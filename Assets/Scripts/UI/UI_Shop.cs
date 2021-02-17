@@ -288,7 +288,6 @@ public class UI_Shop : MonoBehaviour
 		if(GameManager.instance.money >= GameManager.instance.seatCost)
 		{
 			GameManager.instance.money -= GameManager.instance.seatCost;
-			Debug.Log(GameManager.instance.seatCost);
 			player.capacity++;
 			purchaseSound.Play();
 			soundEffect.PlayOneShot(upgradeSound);
