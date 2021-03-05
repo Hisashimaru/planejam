@@ -10,6 +10,7 @@ public class HUD : MonoBehaviour
 	public RectTransform airportCounter;
 	public GameObject airportCounterPrefab;
 	public Slider hpSlider;
+	public Slider damageSlider;
 	public Slider gasSlider;
 	public Slider boostSlider;
 	public UI_License license;
@@ -52,6 +53,9 @@ public class HUD : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		// Update Damage Slider
+		damageSlider.value = Mathf.MoveTowards(damageSlider.value, hpSlider.value, 0.4f*Time.deltaTime);
+		
 		if(player == null)
 			return;
 			
