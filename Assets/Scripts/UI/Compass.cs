@@ -9,6 +9,8 @@ public class Compass : MonoBehaviour
 	[Header("Shop Icon")]
 	public Sprite renchSprite;
 	public Sprite gasSprite;
+	public Sprite boostSprite;
+	public Sprite shieldSprite;
 
 	Airplane player;
 	//List<RectTransform> markers = new List<RectTransform>();
@@ -60,26 +62,38 @@ public class Compass : MonoBehaviour
 			icon.gameObject.SetActive(false);
 			icon2.gameObject.SetActive(false);
 			bool subIcon = false;
-			if(airport.item1 == ItemType.Gas || airport.item2 == ItemType.Gas)
+			if(airport.item1 != ItemType.None)
 			{
-				icon.sprite = gasSprite;
+				icon.sprite = GetItemSprite(airport.item1);
 				icon.gameObject.SetActive(true);
 				subIcon = true;
 			}
-			if(airport.item1 == ItemType.Fix || airport.item2 == ItemType.Fix)
+			if(airport.item2 != ItemType.None)
 			{
 				if(!subIcon)
 				{
-					icon.sprite = renchSprite;
+					icon.sprite = GetItemSprite(airport.item2);
 					icon.gameObject.SetActive(true);
 				}
 				else
 				{
-					icon2.sprite = renchSprite;
+					icon2.sprite = GetItemSprite(airport.item2);
 					icon2.gameObject.SetActive(true);
 				}
 			}
 		}
+	}
+
+	Sprite GetItemSprite(ItemType type)
+	{
+		switch(type)
+		{
+			case ItemType.Fix: return renchSprite;
+			case ItemType.Gas: return gasSprite;
+			case ItemType.Boost: return boostSprite;
+			case ItemType.Shield: return shieldSprite;
+		}
+		return null;
 	}
 
 	float easing(float t)

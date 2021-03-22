@@ -22,13 +22,17 @@ public class Airport : MonoBehaviour
 
 	public Color materialColor{set{buildingRenderer.material.color = value;}}
 
-	void Start()
+	void Awake()
 	{
-		player = GameManager.instance.player;
 		if(id == 0)
 		{
 			item1 = ItemType.Fix;
 		}
+	}
+
+	void Start()
+	{
+		player = GameManager.instance.player;
 	}
 
 	void Update()

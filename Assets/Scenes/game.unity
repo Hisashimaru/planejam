@@ -15678,7 +15678,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 58.70456, y: 58.70456}
+  m_SizeDelta: {x: 0, y: 58.70456}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212046733
 MonoBehaviour:
@@ -22662,7 +22662,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 58.70456, y: 58.70456}
+  m_SizeDelta: {x: 0, y: 58.70456}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487961010
 MonoBehaviour:
@@ -22790,7 +22790,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497464066}
-  m_LocalRotation: {x: 0.4702847, y: 0.000000045747914, z: -0.000000026654071, w: 0.8825148}
+  m_LocalRotation: {x: 0.47028473, y: -0.000000027275496, z: 0.000000015802003, w: 0.8825148}
   m_LocalPosition: {x: 0.00000023867656, y: 88.08683, z: -7.675499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -85495,6 +85495,8 @@ MonoBehaviour:
   markerPrefab: {fileID: 1866982963}
   renchSprite: {fileID: 21300000, guid: 7f996dddfa94056418220a388557ac7f, type: 3}
   gasSprite: {fileID: 21300000, guid: e4fe7337baabc794b8eef12ddaf46f05, type: 3}
+  boostSprite: {fileID: 21300000, guid: c3a14752602123045ae1223059d3e79d, type: 3}
+  shieldSprite: {fileID: 21300000, guid: 7a3058ea08852504ba312b2e10463ead, type: 3}
 --- !u!1 &1946227395
 GameObject:
   m_ObjectHideFlags: 0
