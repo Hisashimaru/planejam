@@ -153,8 +153,11 @@ public class MegaShark : MonoBehaviour
 		return (transform.position + pos).normalized * 80f;
 	}
 
+	#if UNITY_EDITOR
 	void OnDrawGizmosSelected()
 	{
+
 		Handles.DrawWireDisc(transform.position, transform.up, radius);
 	}
+	#endif
 }

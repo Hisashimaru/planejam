@@ -25,6 +25,10 @@ public class Airport : MonoBehaviour
 	void Start()
 	{
 		player = GameManager.instance.player;
+		if(id == 0)
+		{
+			item1 = ItemType.Fix;
+		}
 	}
 
 	void Update()

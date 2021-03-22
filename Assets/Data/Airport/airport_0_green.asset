@@ -15,5 +15,5 @@ MonoBehaviour:
   color: {r: 0.25882357, g: 0.9254902, b: 0.26351088, a: 1}
   materialColor: {r: 0.35536513, g: 0.9254902, b: 0.25882357, a: 1}
   unlockValue: 0
-  item1: 1
+  item1: 2
   item2: 0
