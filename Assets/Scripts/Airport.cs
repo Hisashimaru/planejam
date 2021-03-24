@@ -26,7 +26,7 @@ public class Airport : MonoBehaviour
 	{
 		if(id == 0)
 		{
-			item1 = ItemType.Fix;
+			//item1 = ItemType.Fix;
 		}
 	}
 
