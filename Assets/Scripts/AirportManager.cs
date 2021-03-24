@@ -47,7 +47,7 @@ public class AirportManager : MonoBehaviour
 			foreach(MegaShark shark in megasharks)
 			{
 				float extraAngleSpace = ((shark.radius+5f)/(radius*2f*Mathf.PI)) * 360.0f;
-				if(Vector3.Angle(pos, shark.transform.position.normalized) <= angleSpace + extraAngleSpace)
+				if(Vector3.Angle(pos, shark.transform.position.normalized) <= extraAngleSpace)
 				{
 					overlapped = true;
 					break;
