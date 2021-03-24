@@ -161,7 +161,7 @@ public class UI_Shop : MonoBehaviour
 			buttons[n].button.interactable = true;
 			buttons[n].button.onClick.AddListener(OnClickFix);
 			buttons[n].check = CanFix;
-			buttons[n].name.text = "FIX";
+			buttons[n].name.text = "REPAIR";
 			buttons[n].cost.text = $"{GameManager.instance.fixCost}{currency}";
 			buttons[n].icon.sprite = fixSprite;
 			//float fixable = (GameManager.instance.money > damage)? damage : GameManager.instance.money;
@@ -176,7 +176,7 @@ public class UI_Shop : MonoBehaviour
 			buttons[n].button.interactable = true;
 			buttons[n].button.onClick.AddListener(OnClickBuyGas);
 			buttons[n].check = CanBuyGas;
-			buttons[n].name.text = "GAS";
+			buttons[n].name.text = "FUEL";
 			buttons[n].cost.text = $"{GameManager.instance.gasCost}{currency}";
 			buttons[n].icon.sprite = gasSprite;
 			//float buyableGas = (GameManager.instance.money > freeSpace)? freeSpace : GameManager.instance.money;
