@@ -29,6 +29,9 @@ public class HUD : MonoBehaviour
 		player = GameManager.instance.player;
 		license.Reset();
 
+		shield.gameObject.SetActive(false);
+		boostSlider.transform.parent.gameObject.SetActive(false);
+
 		if(airportCounters.Count > 0)
 			return;
 
@@ -45,9 +48,6 @@ public class HUD : MonoBehaviour
 			airportCounters.Add(go);
 			go.transform.SetParent(airportCounter, false);
 		}
-
-		shield.gameObject.SetActive(false);
-		boostSlider.transform.parent.gameObject.SetActive(false);
 	}
 
 	// Update is called once per frame
