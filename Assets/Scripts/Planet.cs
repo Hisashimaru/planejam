@@ -91,6 +91,7 @@ public class Planet : MonoBehaviour
 
 	List<Vector3> GetRandomPositions(float radius)
 	{
+		MegaShark[] megasharks = GameManager.instance.planet.gameObject.GetComponentsInChildren<MegaShark>();
 		List<Vector3> positions = new List<Vector3>();
 		for(int i=0; i<1000; i++)
 		{
@@ -140,6 +141,17 @@ public class Planet : MonoBehaviour
 					break;
 				}
 			}
+
+			// Check for overlap with the sea
+			foreach(MegaShark shark in megasharks)
+			{
+				if(Vector3.Distance(pos, shark.transform.position) < radius + shark.radius)
+				{
+					overlapped = true;
+					break;
+				}
+			}
+
 			if(overlapped)
 				continue;
 
