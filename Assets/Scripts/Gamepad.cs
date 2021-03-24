@@ -58,10 +58,12 @@ public class Gamepad : MonoBehaviour
 		if(user.controlScheme.Value.name == "Pad")
 		{
 			_useGamepad = true;
+			Cursor.visible = false;
 		}
 		else
 		{
 			_useGamepad = false;
+			Cursor.visible = true;
 		}
 	}
 
