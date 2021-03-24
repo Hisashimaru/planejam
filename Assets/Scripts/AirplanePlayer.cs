@@ -190,7 +190,7 @@ public class AirplanePlayer : Airplane
 				speed += acceleration * 2.0f *  Time.deltaTime;
 				boostEffectL.gameObject.SetActive(true);
 				boostEffectR.gameObject.SetActive(true);
-				boost -= (1.0f/5.0f) * Time.deltaTime; // consume boost energy (5sec)
+				boost -= (1.0f/6.0f) * Time.deltaTime; // consume boost energy (6sec)
 				boosting = true;
 				speedLimit = maxBoostSpeed;
 				NS.Gamepad.motorSpeeds += new Vector2(0.3f, 0.0f);
