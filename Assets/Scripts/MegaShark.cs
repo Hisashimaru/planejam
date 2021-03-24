@@ -70,7 +70,7 @@ public class MegaShark : MonoBehaviour
 			velocity += dir.normalized * Time.deltaTime;
 			velocity = velocity.magnitude > 3.0f ? velocity.normalized * 3.0f : velocity;
 			Vector3 pos = sharkShadow.position + velocity * Time.deltaTime;
-			sharkShadow.position = pos.normalized * (planetSize - 0.2f);
+			sharkShadow.position = pos.normalized * (planetSize - 0.7f);
 			sharkShadow.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(velocity, pos.normalized), pos.normalized);
 			velocity = velocity - (velocity * 0.5f * Time.deltaTime);
 		}
