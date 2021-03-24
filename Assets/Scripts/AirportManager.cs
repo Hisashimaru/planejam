@@ -24,6 +24,8 @@ public class AirportManager : MonoBehaviour
 		airportList.Add(startAirport);
 		float radius = GetComponent<Planet>().size;
 
+		MegaShark[] megasharks = GameManager.instance.planet.gameObject.GetComponentsInChildren<MegaShark>();
+
 		float angleSpace = (spacing/(radius*2f*Mathf.PI)) * 360.0f;
 		List<Vector3> positions = new List<Vector3>();
 		positions.Add(startAirport.transform.position.normalized);
@@ -31,6 +33,7 @@ public class AirportManager : MonoBehaviour
 		{
 			Vector3 pos = Random.onUnitSphere;
 			bool overlapped = false;
+			// check for overlapp with other airports
 			for(int j=0; j<positions.Count; j++)
 			{
 				if(Vector3.Angle(pos, positions[j]) <= angleSpace)
@@ -39,6 +42,19 @@ public class AirportManager : MonoBehaviour
 					break;
 				}
 			}
+
+			// check for overlapp with the sea
+			foreach(MegaShark shark in megasharks)
+			{
+				float extraAngleSpace = ((shark.radius+5f)/(radius*2f*Mathf.PI)) * 360.0f;
+				if(Vector3.Angle(pos, shark.transform.position.normalized) <= angleSpace + extraAngleSpace)
+				{
+					overlapped = true;
+					break;
+				}
+			}
+
+
 			if(!overlapped)
 			{
 				positions.Add(pos);
